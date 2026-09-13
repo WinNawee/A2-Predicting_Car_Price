@@ -1,6 +1,17 @@
 services:
   car-price-app:
-    build: .
-    ports:
-      - "8050:8050"
+    image: naweep/car-price-app:latest   # <-- replace with your actual Docker Hub username
     restart: unless-stopped
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.st127031.rule=Host(`web-st127031.ml.brain.cs.ait.ac.th`)"
+      - "traefik.http.routers.st127031.entrypoints=websecure"
+      - "traefik.http.routers.st127031.tls=true"
+      - "traefik.http.routers.st127031.tls.certresolver=letsencrypt"
+      - "traefik.http.services.st127031.loadbalancer.server.port=8050"
+
+networks:
+  web:
+    external: true

@@ -1,12 +1,12 @@
 # A2: Predicting Car Price
 
-AT82.03 Machine Learning — Assignment 2. Continues from Assignment 1's used-car
+AT82.03 Machine Learning  Assignment 2. Continues from Assignment 1's used-car
 price dataset, replacing the modeling step with a linear regression class built
 from scratch (gradient descent, Xavier initialization, optional momentum),
 compares it across a cross-validated experiment grid tracked in MLflow, and
 deploys a two-model web app.
 
-**Live site**: `https://web-<your-student-id>.ml.brain.cs.ait.ac.th` <!-- fill in after deploying -->
+**Live site**: [https://web-st127031.ml.brain.cs.ait.ac.th](https://web-st127031.ml.brain.cs.ait.ac.th)
 
 ## Repository contents
 
@@ -109,8 +109,9 @@ docker run -p 8050:8050 car-price-app
 
 ### Deployment
 
-Deployed to the course's `ml-brain` server behind Traefik, following the
-subdomain pattern `web-<student-id>.ml.brain.cs.ait.ac.th`. The image is built
-locally, pushed to Docker Hub, and pulled by `docker-compose.yaml` on the
-server (see the `labels:` section of that file for the Traefik router
-configuration).
+Deployed to the course's `ml-brain` server behind Traefik at
+`web-st127031.ml.brain.cs.ait.ac.th`. The image is built locally, pushed to
+Docker Hub (`naweep/car-price-app:latest`), and pulled by `docker-compose.yaml`
+on the server, which joins the existing `web` Docker network and adds Traefik
+routing labels (`entrypoints=websecure`, `certresolver=letsencrypt`) — no ports
+are published directly; Traefik reaches the container over that network.
